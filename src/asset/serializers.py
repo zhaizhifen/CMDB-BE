@@ -15,3 +15,9 @@ class ServerStatusSerializer(serializers.ModelSerializer):
     class Meta:
         model = ServerStatus
         fields = ('__all__')
+
+
+class ServerStatusCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ServerStatus
+        exclude = ('uuid',)

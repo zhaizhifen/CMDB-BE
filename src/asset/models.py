@@ -22,8 +22,8 @@ class ServerInfo(models.Model):
     disk_capacity = models.SmallIntegerField('Disk')
     nic = models.CharField('NIC', max_length=64, blank=True, null=True)
     idc = models.CharField('IDC', max_length=64, blank=True, null=True)
-    apply_date = models.DateTimeField('DateOfApplication')
-    expire_date = models.DateTimeField('DateOfExpire')
+    apply_date = models.DateField('DateOfApplication')
+    expire_date = models.DateField('DateOfExpire')
 
     def __str__(self):
         return self.uuid
@@ -36,7 +36,7 @@ class ServerInfo(models.Model):
 
 
 class ServerStatus(models.Model):
-    server_info = models.OneToOneField(
+    uuid = models.OneToOneField(
         ServerInfo,
         on_delete=models.CASCADE,
         primary_key=True,
@@ -65,10 +65,10 @@ class ServerStatus(models.Model):
     )
 
     def __str__(self):
-        return self.server_info
+        return self.uuid
 
     def __unicode__(self):
-        return self.server_info
+        return self.uuid
 
     class Meta:
         verbose_name = "server status"
