@@ -40,6 +40,7 @@ class ServerStatus(models.Model):
         ServerInfo,
         on_delete=models.CASCADE,
         primary_key=True,
+        related_name='uuid_name'
     )
     project = models.CharField('PROJECT', max_length=64)
     pic = models.CharField('PersonInCharge', max_length=64, blank=True, null=True)
