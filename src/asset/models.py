@@ -1,14 +1,13 @@
 # -*- coding: utf-8 -*-
-from __future__ import unicode_literals
 
+from __future__ import unicode_literals
 from django.db import models
 
-
 class ServerInfo(models.Model):
-    uuid = models.IntegerField(primary_key=True)
-    manufactory = models.CharField('Manufactory', max_length=64)
-    model = models.CharField('Models', max_length=64)
-    cpu = models.CharField('CPU', max_length=64)
+    uuid = models.CharField(primary_key=True, max_length=37)
+    manufactory = models.CharField('Manufactory', max_length=255)
+    model = models.CharField('Models', max_length=255)
+    cpu = models.SmallIntegerField('CPU')
     mem = models.SmallIntegerField('Memory')
     DISK_TYPE_CHOICES = (
         (0, 'HDD'),
@@ -20,8 +19,8 @@ class ServerInfo(models.Model):
             default=0,
     )
     disk_capacity = models.SmallIntegerField('Disk')
-    nic = models.CharField('NIC', max_length=64, blank=True, null=True)
-    idc = models.CharField('IDC', max_length=64, blank=True, null=True)
+    nic = models.CharField('NIC', max_length=255, blank=True, null=True)
+    idc = models.CharField('IDC', max_length=255, blank=True, null=True)
     apply_date = models.DateField('DateOfApplication')
     expire_date = models.DateField('DateOfExpire')
 
@@ -42,8 +41,8 @@ class ServerStatus(models.Model):
         primary_key=True,
         related_name='uuid_name'
     )
-    project = models.CharField('PROJECT', max_length=64)
-    pic = models.CharField('PersonInCharge', max_length=64, blank=True, null=True)
+    project = models.CharField('PROJECT', max_length=255)
+    pic = models.CharField('PersonInCharge', max_length=255, blank=True, null=True)
     ALLOCATION_STATUS_CHOICES = (
         (0, 'allocated'),
         (1, 'unallocated'),

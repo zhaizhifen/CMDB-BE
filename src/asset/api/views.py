@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-from __future__ import unicode_literals
 
+from __future__ import unicode_literals
 from rest_framework.generics import (
     CreateAPIView,
     ListAPIView,
@@ -8,7 +8,6 @@ from rest_framework.generics import (
     RetrieveUpdateAPIView,
     RetrieveDestroyAPIView,
     )
-
 from asset.models import ServerInfo, ServerStatus
 from asset.serializers import (
     ServerInfoSerializer,

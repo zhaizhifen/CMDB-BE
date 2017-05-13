@@ -1,20 +1,18 @@
 # -*- coding: utf-8 -*-
-from __future__ import unicode_literals
 
+from __future__ import unicode_literals
 from django.conf.urls import url
 from asset import views
-
-# api test
 from asset.api import views as api_views
 
 urlpatterns = [
-    url(r'^asset/server_info/$', views.server_info_list,
+    url(r'^api/server_info/$', views.server_info_list,
         name="server_info list&update"),
-    url(r'^asset/server_info/(?P<pk>[0-9]+)/$', views.server_info_detail,
+    url(r'^api/server_info/(?P<pk>[0-9]+)/$', views.server_info_detail,
         name="server_info retrieve&update&delete"),
-    url(r'^asset/server_status/$', views.server_status_list,
+    url(r'^api/server_status/$', views.server_status_list,
         name="server_status list&update"),
-    url(r'^asset/server_status/(?P<pk>[0-9]+)/$', views.server_status_detail,
+    url(r'^api/server_status/(?P<pk>[0-9]+)/$', views.server_status_detail,
         name="server_status retrieve&update&delete"),
 
     # api test views
@@ -32,7 +30,7 @@ urlpatterns = [
         name="server_info apitest update"),
     url(r'^asset/api/server_info/(?P<uuid>[0-9]+)/delete/$',
         api_views.ServerInfoDelete.as_view(),
-        name="server_info apitest delete"),
+        name="server_info apitest delete")
 
     # url(r'^asset/api/server_status/create/$',
     #     api_views.ServerStatusCreate.as_view(),
@@ -48,5 +46,5 @@ urlpatterns = [
     #     name="server_status apitest update"),
     # url(r'^asset/api/server_status/(?P<uuid>[0-9]+)/delete/$',
     #     api_views.ServerStatusDelete.as_view(),
-    #     name="server_status apitest delete"),
+    #     name="server_status apitest delete")
 ]
