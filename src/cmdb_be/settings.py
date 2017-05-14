@@ -1,6 +1,7 @@
 # coding=utf-8
 
 import os
+from config import config
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -54,11 +55,11 @@ WSGI_APPLICATION = 'cmdb_be.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'cmdb',
-        'USER': '',
-        'PASSWORD': '',
-        'HOST': '',
-        'PORT': '3306',
+        'NAME': config.mysql_db_name,
+        'USER': config.mysql_user,
+        'PASSWORD': config.mysql_password,
+        'HOST': config.mysql_host,
+        'PORT': config.mysql_port,
     }
 }
 
