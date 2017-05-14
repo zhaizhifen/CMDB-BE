@@ -1,0 +1,27 @@
+[
+  {
+    "model": "asset.ServerInfo",
+    "fields": {
+      "uuid": "aaa",
+      "manufactory": "dell",
+      "model": "111",
+      "cpu": 8,
+      "mem": 64,
+      "disk_capacity": 1000,
+      "nic": "nic1",
+      "idc": "idc1",
+      "apply_date": "2011-11-11",
+      "expire_date":  "2021-11-11"
+    }
+  },
+  {
+    "model": "asset.ServerStatus",
+    "fields": {
+      "server_info": "aaa",
+      "project": "aaaaaa",
+      "allocation_status": 0,
+      "health_status": 0,
+      "pic": "pic1"
+    }
+  }
+]

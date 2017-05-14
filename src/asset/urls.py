@@ -8,11 +8,11 @@ from asset.api import views as api_views
 urlpatterns = [
     url(r'^api/server_info/$', views.server_info_list,
         name="server_info list&update"),
-    url(r'^api/server_info/(?P<pk>[0-9]+)/$', views.server_info_detail,
+    url(r'^api/server_info/(?P<server_id>(.*))$', views.server_info_detail,
         name="server_info retrieve&update&delete"),
     url(r'^api/server_status/$', views.server_status_list,
         name="server_status list&update"),
-    url(r'^api/server_status/(?P<pk>[0-9]+)/$', views.server_status_detail,
+    url(r'^api/server_status/(?P<server_id>(.*))$', views.server_status_detail,
         name="server_status retrieve&update&delete"),
 
     # api test views
