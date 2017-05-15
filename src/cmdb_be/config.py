@@ -14,7 +14,7 @@ class Config(object):
         self.cp = ConfigParser.ConfigParser()
         if not os.path.exists(self.conf_file):
             print "INFO: Not Found config file [%s], use [%s] instead" % (
-                self.conf_file,
+                os.path.join(self.conf_dir, self.conf_file),
                 self.default_path
                 )
             self.conf_file = self.default_path
@@ -32,3 +32,9 @@ class Config(object):
     def get_config(self, section, option):
         if option in self.conf_options(section):
             return self.cp.get(section, option)
+
+    def conf(self, section):
+        conf_result = {}
+        for option in self.conf_options(section):
+            conf_result[option] = self.get_config(section, option)
+        return conf_result
