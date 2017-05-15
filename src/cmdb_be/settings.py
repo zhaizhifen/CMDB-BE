@@ -1,9 +1,10 @@
 # coding=utf-8
 
 import os
-from config import config
+from config import Config
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+MYSQL_DB = Config(os.path.join(BASE_DIR, 'conf'), 'cmdb.ini').conf('mysql')
 
 SECRET_KEY = 'y3==o8+!&dg(6eatv*&n8rvc0-9b+cu-r=#s=w@dl+8v5ibxaf'
 
@@ -55,11 +56,11 @@ WSGI_APPLICATION = 'cmdb_be.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': config.mysql_db_name,
-        'USER': config.mysql_user,
-        'PASSWORD': config.mysql_password,
-        'HOST': config.mysql_host,
-        'PORT': config.mysql_port,
+        'NAME': MYSQL_DB['db_name'],
+        'USER': MYSQL_DB['user'],
+        'PASSWORD': MYSQL_DB['password'],
+        'HOST': MYSQL_DB['host'],
+        'PORT': MYSQL_DB['port'],
     }
 }
 
