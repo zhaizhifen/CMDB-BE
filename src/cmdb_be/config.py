@@ -1,75 +1,34 @@
-#!/usr/bin/env python
-# _*_coding:utf-8_*_
+# coding=utf-8
 
 import os
 import ConfigParser
 
 __author__ = 'Sheng Chen'
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
 
 class Config(object):
-    def __init__(self, conf_path):
-        self.conf_path = conf_path
-        self.default_path = os.path.join(BASE_DIR, 'conf', 'default.ini')
-        self.default_parser = ConfigParser.ConfigParser()
-        self.default_parser.read(self.default_path)
+    def __init__(self, conf_dir, conf_file):
+        self.conf_dir = conf_dir
+        self.conf_file = conf_file
+        self.default_path = os.path.join(self.conf_dir, 'default.ini')
+        self.cp = ConfigParser.ConfigParser()
+        if not os.path.exists(self.conf_file):
+            print "INFO: Not Found config file [%s], use [%s] instead" % (
+                self.conf_file,
+                self.default_path
+                )
+            self.conf_file = self.default_path
+        self.cp.read(self.conf_file)
 
-    @property
-    def parser(self):
-        cp = ConfigParser.ConfigParser()
-        if os.path.exists(self.conf_path):
-            pass
+    def conf_sections(self):
+        return self.cp.sections()
+
+    def conf_options(self, section):
+        if section in self.conf_sections():
+            return self.cp.options(section)
         else:
-            conf_path = os.path.join(BASE_DIR, 'conf')
-            print "INFO: Not Found config file [%s], use [%s] instead" % \
-                  (self.conf_path,
-                   os.path.join(conf_path, 'default.ini'))
-            self.conf_path = self.default_path
-        cp.read(self.conf_path)
-        return cp
+            print "%s have no conf section %s" % (self.conf_file, section)
 
-    @property
-    def sections(self):
-        cf = ConfigParser.ConfigParser()
-        cf.read(self.conf_path)
-        return cf.sections()
-
-    @property
-    def mysql_options(self):
-        return self.parser.options('mysql')
-
-    @property
-    def mysql_port(self):
-        return self.get_mysql_config('port')
-
-    @property
-    def mysql_host(self):
-        return self.get_mysql_config('host')
-
-    @property
-    def mysql_db_name(self):
-        return self.get_mysql_config('db_name')
-
-    @property
-    def mysql_user(self):
-        return self.get_mysql_config('user')
-
-    @property
-    def mysql_password(self):
-        return self.get_mysql_config('password')
-
-    def get_mysql_config(self, option):
-        if option in self.mysql_options:
-            return self.parser.get('mysql', option)
-        else:
-            return self.default_parser.get('mysql', option)
-
-config = Config(os.path.join(BASE_DIR, 'conf', 'cmdb.ini'))
-
-if __name__ == '__main__':
-    print config.mysql_host
-    print config.mysql_password
-    print config.mysql_port
-    print config.mysql_user
+    def get_config(self, section, option):
+        if option in self.conf_options(section):
+            return self.cp.get(section, option)
