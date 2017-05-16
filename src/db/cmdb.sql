@@ -34,6 +34,7 @@ CREATE TABLE `asset_serverinfo` (
   `idc` char(255) DEFAULT NULL,
   `apply_date` date DEFAULT NULL,
   `expire_date` date DEFAULT NULL,
+  PRIMARY KEY (`uuid`),
   KEY `id` (`uuid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -46,6 +47,34 @@ LOCK TABLES `asset_serverinfo` WRITE;
 /*!40000 ALTER TABLE `asset_serverinfo` DISABLE KEYS */;
 INSERT INTO `asset_serverinfo` VALUES ('12b2ff72-9b78-4378-8e6b-9760b17d09eb','DELL','R730',16,512,'0','1024','千兆','北京兆维','2017-05-01','2017-06-01'),('b876d8f9-85fd-42e7-8fbf-00ba789116b7','HP','DL580',32,262144,'1','1024','万兆','北京土城','2017-05-01','2017-06-01');
 /*!40000 ALTER TABLE `asset_serverinfo` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `asset_serverstatus`
+--
+
+DROP TABLE IF EXISTS `asset_serverstatus`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `asset_serverstatus` (
+  `server_info_id` varchar(37) NOT NULL,
+  `project` varchar(255) DEFAULT NULL,
+  `owner` varchar(255) DEFAULT NULL,
+  `allocation_status` varchar(1) DEFAULT NULL,
+  `health_status` varchar(1) DEFAULT NULL,
+  PRIMARY KEY (`server_info_id`),
+  CONSTRAINT `asset_serverstatus_server_info_id_28798e6a_fk_asset_ser` FOREIGN KEY (`server_info_id`) REFERENCES `asset_serverinfo` (`uuid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `asset_serverstatus`
+--
+
+LOCK TABLES `asset_serverstatus` WRITE;
+/*!40000 ALTER TABLE `asset_serverstatus` DISABLE KEYS */;
+INSERT INTO `asset_serverstatus` VALUES ('12b2ff72-9b78-4378-8e6b-9760b17d09eb','CMDB','胡湘林','1','1'),('b876d8f9-85fd-42e7-8fbf-00ba789116b7','服务树','赵培武','0','0');
+/*!40000 ALTER TABLE `asset_serverstatus` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -82,4 +111,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-05-13 21:36:22
+-- Dump completed on 2017-05-17  1:50:38

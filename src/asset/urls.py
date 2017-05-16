@@ -15,22 +15,22 @@ urlpatterns = [
     url(r'^api/server_status/(?P<server_id>(.*))$', views.server_status_detail,
         name="server_status retrieve&update&delete"),
 
-    # api test views
-    url(r'^asset/api/server_info/create/$',
-        api_views.ServerInfoCreate.as_view(),
-        name="server_info apitest create"),
-    url(r'^asset/api/server_info/$',
-        api_views.ServerInfoList.as_view(),
-        name="server_info apitest list"),
-    url(r'^asset/api/server_info/(?P<uuid>[0-9]+)/$',
-        api_views.ServerInfoRetrieve.as_view(),
-        name="server_info apitest retrieve"),
-    url(r'^asset/api/server_info/(?P<uuid>[0-9]+)/edit/$',
-        api_views.ServerInfoUpdate.as_view(),
-        name="server_info apitest update"),
-    url(r'^asset/api/server_info/(?P<uuid>[0-9]+)/delete/$',
-        api_views.ServerInfoDelete.as_view(),
-        name="server_info apitest delete")
+    # # api test views
+    # url(r'^asset/api/server_info/create/$',
+    #     api_views.ServerInfoCreate.as_view(),
+    #     name="server_info apitest create"),
+    # url(r'^asset/api/server_info/$',
+    #     api_views.ServerInfoList.as_view(),
+    #     name="server_info apitest list"),
+    # url(r'^asset/api/server_info/(?P<uuid>[0-9]+)/$',
+    #     api_views.ServerInfoRetrieve.as_view(),
+    #     name="server_info apitest retrieve"),
+    # url(r'^asset/api/server_info/(?P<uuid>[0-9]+)/edit/$',
+    #     api_views.ServerInfoUpdate.as_view(),
+    #     name="server_info apitest update"),
+    # url(r'^asset/api/server_info/(?P<uuid>[0-9]+)/delete/$',
+    #     api_views.ServerInfoDelete.as_view(),
+    #     name="server_info apitest delete")
 
     # url(r'^asset/api/server_status/create/$',
     #     api_views.ServerStatusCreate.as_view(),

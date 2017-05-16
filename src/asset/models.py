@@ -46,7 +46,7 @@ class ServerStatus(models.Model):
         related_name='server_status'
     )
     project = models.CharField('PROJECT', max_length=255)
-    pic = models.CharField('PersonInCharge', max_length=255, blank=True, null=True)
+    owner = models.CharField('PersonInCharge', max_length=255, blank=True, null=True)
     ALLOCATION_STATUS_CHOICES = (
         (ALLOCATED, 'allocated'),
         (UNALLOCATED, 'unallocated'),

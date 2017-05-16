@@ -27,26 +27,6 @@ def server_info_list(request):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-
-@api_view(['GET', 'POST'])
-@csrf_exempt
-def server_status_list(request):
-    """
-    List all code server_status, or create a new server_status.
-    """
-    if request.method == 'GET':
-        server_status = ServerStatus.objects.all()
-        serializer = ServerStatusSerializer(server_status, many=True)
-        return Response(serializer.data)
-
-    elif request.method == 'POST':
-        serializer = ServerStatusSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
 @api_view(['GET', 'PUT', 'DELETE'])
 @csrf_exempt
 def server_info_detail(request, server_id):
@@ -73,6 +53,23 @@ def server_info_detail(request, server_id):
         server_info.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
+@api_view(['GET', 'POST'])
+@csrf_exempt
+def server_status_list(request):
+    """
+    List all code server_status, or create a new server_status.
+    """
+    if request.method == 'GET':
+        server_status = ServerStatus.objects.all()
+        serializer = ServerStatusSerializer(server_status, many=True)
+        return Response(serializer.data)
+
+    elif request.method == 'POST':
+        serializer = ServerStatusSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET', 'PUT', 'DELETE'])
 @csrf_exempt
