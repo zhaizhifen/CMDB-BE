@@ -3,6 +3,7 @@
 import os
 from config import Config
 
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MYSQL_DB = Config(os.path.join(BASE_DIR, 'conf'), 'cmdb.ini').conf('mysql')
 

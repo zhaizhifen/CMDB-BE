@@ -10,7 +10,7 @@ from asset.models import ServerInfo, ServerStatus
 from asset.serializers import ServerInfoSerializer, ServerStatusSerializer
 
 
-@api_view(['GET', 'POST'])
+@api_view(['GET'])
 @csrf_exempt
 def server_info_list(request):
     """
@@ -19,41 +19,95 @@ def server_info_list(request):
     if request.method == 'GET':
         server_info = ServerInfo.objects.all()
         serializer = ServerInfoSerializer(server_info, many=True)
-        return Response(serializer.data)
-    elif request.method == 'POST':
-        serializer = ServerInfoSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        resData = {
+            "code": 0,
+            "message": "succeed",
+            "data": serializer.data
+        }
+        return Response(resData)
 
-@api_view(['GET', 'PUT', 'DELETE'])
+
+@api_view(['GET', 'PUT', 'POST', 'DELETE'])
 @csrf_exempt
-def server_info_detail(request, server_id):
+def server_info_detail(request, uuid):
     """
     Retrieve, update or delete a code server_info.
     """
-    try:
-        server_info = ServerInfo.objects.get(pk=server_id)
-    except ServerInfo.DoesNotExist:
-        raise Http404
-
     if request.method == 'GET':
-        serializer = ServerInfoSerializer(server_info)
-        return Response(serializer.data)
+        try:
+            server_info = ServerInfo.objects.get(pk=uuid)
+            serializer = ServerInfoSerializer(server_info)
+            resData = {
+                "code": 0,
+                "message": "succeed",
+                "data": serializer.data
+            }
+            return Response(resData)
+        except ServerInfo.DoesNotExist:
+            resData = {
+                "code": 1,
+                "message": "{0} is not found.".format(uuid)
+            }
+            return Response(resData)
 
     elif request.method == 'PUT':
-        serializer = ServerInfoSerializer(server_info, data=request.data)
+        serializer = ServerInfoSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            resData = {
+                "code": 0,
+                "message": "succeed"
+            }
+            return Response(resData)
+        else:
+            resData = {
+                "code": 1,
+                "message": serializer.errors
+            }
+            return Response(resData)
+
+    elif request.method == 'POST':
+        try:
+            server_info = ServerInfo.objects.get(pk=uuid)
+            serializer = ServerInfoSerializer(server_info, data=request.data, partial=True)
+            if serializer.is_valid():
+                serializer.save()
+                resData = {
+                    "code": 0,
+                    "message": "succeed"
+                }
+                return Response(resData)
+            else:
+                resData = {
+                    "code": 1,
+                    "message": serializer.errors
+                }
+                return Response(resData)
+        except ServerInfo.DoesNotExist:
+            resData = {
+                "code": 1,
+                "message": "{0} is not found.".format(uuid)
+            }
+            return Response(resData)
 
     elif request.method == 'DELETE':
-        server_info.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+        try:
+            server_info = ServerInfo.objects.get(pk=uuid)
+            server_info.delete()
+            resData = {
+                "code": 0,
+                "message": "succeed"
+            }
+            return Response(resData)
+        except ServerInfo.DoesNotExist:
+            resData = {
+                "code": 1,
+                "message": "{0} is not found.".format(uuid)
+            }
+            return Response(resData)
 
-@api_view(['GET', 'POST'])
+
+@api_view(['GET'])
 @csrf_exempt
 def server_status_list(request):
     """
@@ -62,37 +116,58 @@ def server_status_list(request):
     if request.method == 'GET':
         server_status = ServerStatus.objects.all()
         serializer = ServerStatusSerializer(server_status, many=True)
-        return Response(serializer.data)
+        resData = {
+            "code": 0,
+            "message": "succeed",
+            "data": serializer.data
+        }
+        return Response(resData)
 
-    elif request.method == 'POST':
-        serializer = ServerStatusSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-@api_view(['GET', 'PUT', 'DELETE'])
+@api_view(['GET', 'POST'])
 @csrf_exempt
-def server_status_detail(request, server_id):
+def server_status_detail(request, uuid):
     """
     Retrieve, update or delete a code server_status.
     """
-    try:
-        server_status = ServerStatus.objects.get(pk=server_id)
-    except ServerStatus.DoesNotExist:
-        raise Http404
-
     if request.method == 'GET':
-        serializer = ServerStatusSerializer(server_status)
-        return Response(serializer.data)
+        try:
+            server_status = ServerStatus.objects.get(pk=uuid)
+            print server_status
+            serializer = ServerStatusSerializer(server_status)
+            resData = {
+                "code": 0,
+                "message": "succeed",
+                "data": serializer.data
+            }
+            return Response(resData)
+        except ServerStatus.DoesNotExist:
+            resData = {
+                "code": 1,
+                "message": "{0} is not found.".format(uuid)
+            }
+            return Response(resData)
 
-    elif request.method == 'PUT':
-        serializer = ServerStatusSerializer(server_status, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    elif request.method == 'DELETE':
-        server_status.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+    elif request.method == 'POST':
+        try:
+            server_status = ServerStatus.objects.get(pk=uuid)
+            serializer = ServerStatusSerializer(server_status, data=request.data, partial=True)
+            if serializer.is_valid():
+                serializer.save()
+                resData = {
+                    "code": 0,
+                    "message": "succeed"
+                }
+                return Response(resData)
+            else:
+                resData = {
+                    "code": 1,
+                    "message": serializer.errors
+                }
+                return Response(resData)
+        except ServerStatus.DoesNotExist:
+            resData = {
+                "code": 1,
+                "message": "{0} is not found.".format(uuid)
+            }
+            return Response(resData)
