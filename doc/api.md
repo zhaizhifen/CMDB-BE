@@ -1,4 +1,5 @@
 GET http://115.28.89.174:8000/api/server_info/
+
 {
   "message": "succeed",
   "code": 0,
@@ -34,6 +35,7 @@ GET http://115.28.89.174:8000/api/server_info/
 
 
 GET http://115.28.89.174:8000/api/server_info/12b2ff72-9b78-4378-8e6b-9760b17d09eb
+
 {
   "message": "succeed",
   "code": 0,
@@ -54,6 +56,7 @@ GET http://115.28.89.174:8000/api/server_info/12b2ff72-9b78-4378-8e6b-9760b17d09
 
 
 PUT http://115.28.89.174:8000/api/server_info/394631c1-4e87-4bfc-a87d-6745516d76c7
+
 {
     "uuid": "394631c1-4e87-4bfc-a87d-6745516d76c7",
     "manufactory": "IBM",
@@ -67,27 +70,35 @@ PUT http://115.28.89.174:8000/api/server_info/394631c1-4e87-4bfc-a87d-6745516d76
     "apply_date": "2017-05-01",
     "expire_date": "2017-06-01"
 }
+
 {
   "message": "succeed",
   "code": 0
 }
 
+
 POST http://115.28.89.174:8000/api/server_info/394631c1-4e87-4bfc-a87d-6745516d76c7
+
 {
     "manufactory": "Cisco"
 }
+
 {
   "message": "succeed",
   "code": 0
 }
+
 
 DELETE http://115.28.89.174:8000/api/server_info/394631c1-4e87-4bfc-a87d-6745516d76c7
+
 {
   "message": "succeed",
   "code": 0
 }
 
+
 GET http://115.28.89.174:8000/api/server_status/
+
 {
   "message": "succeed",
   "code": 0,
@@ -109,7 +120,9 @@ GET http://115.28.89.174:8000/api/server_status/
   ]
 }
 
+
 GET http://115.28.89.174:8000/api/server_status/12b2ff72-9b78-4378-8e6b-9760b17d09eb
+
 {
   "message": "succeed",
   "code": 0,
@@ -122,10 +135,13 @@ GET http://115.28.89.174:8000/api/server_status/12b2ff72-9b78-4378-8e6b-9760b17d
   }
 }
 
+
 PUT http://115.28.89.174:8000/api/server_status/b876d8f9-85fd-42e7-8fbf-00ba78911aaa
+
 {
     "project": "CMDB"
 }
+
 {
   "message": "succeed",
   "code": 0
