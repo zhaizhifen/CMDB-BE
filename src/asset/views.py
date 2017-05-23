@@ -8,6 +8,9 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from asset.models import ServerInfo, ServerStatus
 from asset.serializers import ServerInfoSerializer, ServerStatusSerializer
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 @api_view(['GET'])
@@ -50,7 +53,7 @@ def server_info_detail(request, uuid):
             }
             return Response(resData)
 
-    elif request.method == 'PUT':
+    elif request.method == 'POST':
         serializer = ServerInfoSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -66,7 +69,7 @@ def server_info_detail(request, uuid):
             }
             return Response(resData)
 
-    elif request.method == 'POST':
+    elif request.method == 'PUT':
         try:
             server_info = ServerInfo.objects.get(pk=uuid)
             serializer = ServerInfoSerializer(server_info, data=request.data, partial=True)
